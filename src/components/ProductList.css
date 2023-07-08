@@ -1,0 +1,25 @@
+/* ProductList.css */
+
+/* Add flexbox to the product list container */
+.product-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Add flexbox to the product list */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    overflow: auto;
+    max-height: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+    .product-list h2 {
+        text-align: center;
+    }
