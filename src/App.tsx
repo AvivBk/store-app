@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from './components/ProductList';
+import FullTodoList from './components/FullTodoList';
 import './styles.css'; // Import the CSS file
 
 const App: React.FC = () => {
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             case 1:
                 return <ProductList products={products} />;
             case 2:
+                return <FullTodoList />;
             case 3:
                 return <p>Page under development</p>;
             default:
