@@ -21,7 +21,7 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                     >
-                        <span className="todos__heading">Available Products</span>
+                        
                         {products?.map((product, index) => (
                             <SingleProduct
                                 index={index}
@@ -34,6 +34,7 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
                     </div>
                 )}
             </Droppable>
+
             <Droppable droppableId="Cart">
                 {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
                     <div
@@ -41,7 +42,7 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
                         {...provided.droppableProps}
                         className={`todos ${snapshot.isDraggingOver ? "dragcomplete" : "remove"}`}
                     >
-                        <span className="todos__heading">Cart</span>
+                       
                         {cart?.map((product, index) => (
                             <SingleProduct
                                 index={index}

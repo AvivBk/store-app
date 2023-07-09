@@ -3,6 +3,7 @@ import ProductsInputField from './ProductsInputField';
 import ProductsList from './ProductsList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Product } from '../models/models';
+import "./FullProductsList.css";
 
 interface Props {
     products: Product[];
@@ -54,10 +55,7 @@ const FullProductsList: React.FC<Props> = ({ products }) => {
             return;
         }
 
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
+        if (destination.droppableId === source.droppableId && destination.index === source.index) {
             return;
         }
 
@@ -68,24 +66,28 @@ const FullProductsList: React.FC<Props> = ({ products }) => {
 
             const updatedCart = [...cart, draggedProduct];
             setCart(updatedCart);
-        } else if (
-            source.droppableId === 'Cart' &&
-            destination.droppableId === 'ProductsList'
-        ) {
+
+            const updatedProductsList = [...updatedProducts];
+            updatedProductsList.splice(source.index, 1);
+            setUpdatedProducts(updatedProductsList);
+        } else if (source.droppableId === 'Cart' && destination.droppableId === 'ProductsList') {
             const draggedProduct = cart[source.index];
             draggedProduct.isInCart = false;
 
             const updatedCart = [...cart];
             updatedCart.splice(source.index, 1);
-
             setCart(updatedCart);
+
+            const updatedProductsList = [...updatedProducts, draggedProduct];
+            setUpdatedProducts(updatedProductsList);
         }
     };
 
+
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="App">
-                <span className="heading">Product Management System</span>
+            <div className="main_container">
+               
                 <ProductsInputField product={product} setProduct={setProduct} handleAdd={handleAdd} />
                 <ProductsList products={updatedProducts} setProducts={setUpdatedProducts} setCart={setCart} cart={cart} />
             </div>

@@ -35,14 +35,16 @@ const App: React.FC = () => {
     return (
         <div className="App" style={{ backgroundImage: "url('/images/store_bg.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
             <h1>Product Management System</h1>
-            {renderContent()}
             <div className="pagination">
-                <button onClick={() => handlePageChange(1)}>Page 1</button>
-                <button onClick={() => handlePageChange(2)}>Page 2</button>
-                <button onClick={() => handlePageChange(3)}>Page 3</button>
+                <button onClick={() => handlePageChange(1)} className={currentPage === 1 ? "active" : ""} disabled={currentPage === 1}>Page 1</button>
+                <button onClick={() => handlePageChange(2)} className={currentPage === 2 ? "active" : ""} disabled={currentPage === 2}>Page 2</button>
+                <button onClick={() => handlePageChange(3)} className={currentPage === 3 ? "active" : ""} disabled={currentPage === 3}>Page 3</button>
             </div>
+            {renderContent()}
         </div>
     );
+
+
 };
 
 export default App;

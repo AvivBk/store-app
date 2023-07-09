@@ -1,17 +1,18 @@
 .container {
-    width: 1100px;
-    height: 600px;
+    width: 90%;
     display: flex;
-    margin-top: 10px;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
 }
 
 .todos {
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    width: 49.5%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Set 3 columns */
+    gap: 20px;
+    overflow: auto;
+    width: calc(33.33% - 20px);
     padding: 20px;
     margin-bottom: 20px;
     margin-left: 10px;
@@ -19,21 +20,22 @@
     background-color: rgb(50, 195, 205);
 }
 
-.dragactive {
-    background-color: rgb(0, 221, 236);
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center; /* Center the title horizontally */
 }
 
-.dragcomplete {
-    background-color: rgb(255, 38, 0);
+@media screen and (max-width: 1100px) {
+    .todos {
+        width: calc(50% - 20px);
+    }
 }
 
-.remove {
-    background-color: rgb(235, 103, 80);
-}
-
-.todos__heading {
-    font-size: 30px;
-    text-align: center;
-    color: white;
-    margin-bottom: 15px;
+@media screen and (max-width: 700px) {
+    .todos {
+        width: 100%;
+        margin: 10px;
+    }
 }
