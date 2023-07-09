@@ -10,14 +10,6 @@ interface Props {
 }
 
 const SingleProduct: React.FC<Props> = ({ index, product, setCart }) => {
-    const handleAddToCart = () => {
-        setCart((prevCart) => [...prevCart, { ...product, isInCart: true }]);
-    };
-
-    const handleRemoveFromCart = () => {
-        setCart((prevCart) => prevCart.filter((cartItem) => cartItem.id !== product.id));
-    };
-
     return (
         <Draggable draggableId={product.id.toString()} index={index}>
             {(provided, snapshot) => (
@@ -34,18 +26,7 @@ const SingleProduct: React.FC<Props> = ({ index, product, setCart }) => {
                             </div>
                             <div className="product__details">
                                 <h3 className="product__name">{product.name}</h3>
-                                <p className="product__serial">{product.serialNumber}</p>
-                                <p className="product__location">{product.location}</p>
                                 <p className="product__price">${product.price}</p>
-                                {product.isInCart ? (
-                                    <button className="product__button remove" onClick={handleRemoveFromCart}>
-                                        Remove from Cart
-                                    </button>
-                                ) : (
-                                    <button className="product__button add" onClick={handleAddToCart}>
-                                        Add to Cart
-                                    </button>
-                                )}
                             </div>
                         </div>
                         <div className="product__quantity">

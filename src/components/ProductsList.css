@@ -1,9 +1,8 @@
-.container {
-    width: 90%;
+.PL_container {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: space-evenly;
 }
 
 .todos {
@@ -11,13 +10,21 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Set 3 columns */
     gap: 20px;
-    overflow: auto;
     width: calc(33.33% - 20px);
     padding: 20px;
     margin-bottom: 20px;
     margin-left: 10px;
     margin-right: 10px;
+    min-height: 600px;
+    min-width:800px;
+}
+
+.products-list {
     background-color: rgb(50, 195, 205);
+}
+
+.cart {
+    background-color: rgb(255, 200, 100);
 }
 
 .title {

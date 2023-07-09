@@ -13,7 +13,7 @@ interface Props {
 
 const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart }) => {
     return (
-        <div className="container">
+        <div className="PL_container">
             <Droppable droppableId="ProductsList">
                 {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
                     <div
