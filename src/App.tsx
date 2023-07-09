@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from './components/ProductList';
 import FullTodoList from './components/FullTodoList';
+import FullProductsList from './components/FullProductsList'; // Import the FullProductsList component
 import './styles.css'; // Import the CSS file
 
 const App: React.FC = () => {
@@ -24,7 +25,7 @@ const App: React.FC = () => {
             case 2:
                 return <FullTodoList />;
             case 3:
-                return <p>Page under development</p>;
+                return <FullProductsList />; // Render the FullProductsList component on page 3
             default:
                 return null;
         }

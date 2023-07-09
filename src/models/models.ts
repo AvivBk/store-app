@@ -3,3 +3,10 @@ export interface Todo {
 	todo: string;
 	isDone: boolean;
 }
+
+export interface Product {
+	id: number;
+	name: string;
+	price: number;
+	isInCart?: boolean;
+}
