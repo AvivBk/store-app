@@ -1,7 +1,7 @@
 import React from "react";
 import { Product } from "../models/models";
 import SingleProduct from "./SingleProduct";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, DroppableProvided, DroppableStateSnapshot } from "react-beautiful-dnd";
 import "./ProductsList.css";
 
 interface Props {
@@ -15,7 +15,7 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
     return (
         <div className="container">
             <Droppable droppableId="ProductsList">
-                {(provided, snapshot) => (
+                {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
                     <div
                         className={`todos ${snapshot.isDraggingOver ? "dragactive" : ""}`}
                         ref={provided.innerRef}
@@ -25,10 +25,8 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
                         {products?.map((product, index) => (
                             <SingleProduct
                                 index={index}
-                                products={products}
                                 product={product}
                                 key={product.id}
-                                setProducts={setProducts}
                                 setCart={setCart}
                             />
                         ))}
@@ -37,7 +35,7 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
                 )}
             </Droppable>
             <Droppable droppableId="Cart">
-                {(provided, snapshot) => (
+                {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
                     <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
@@ -47,10 +45,8 @@ const ProductsList: React.FC<Props> = ({ products, setProducts, setCart, cart })
                         {cart?.map((product, index) => (
                             <SingleProduct
                                 index={index}
-                                products={cart}
                                 product={product}
                                 key={product.id}
-                                setProducts={setProducts}
                                 setCart={setCart}
                             />
                         ))}

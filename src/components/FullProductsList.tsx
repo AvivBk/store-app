@@ -4,46 +4,46 @@ import ProductsList from './ProductsList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Product } from '../models/models';
 
-const FullProductsList: React.FC = () => {
+interface Props {
+    products: Product[];
+}
+
+const FullProductsList: React.FC<Props> = ({ products }) => {
     const [product, setProduct] = useState<string>('');
-    const [products, setProducts] = useState<Array<Product>>([]);
-    const [cart, setCart] = useState<Array<Product>>([]);
+    const [cart, setCart] = useState<Product[]>([]);
+    const [updatedProducts, setUpdatedProducts] = useState<Product[]>(products);
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (product) {
-            setProducts([
-                ...products,
-                { id: Date.now(), name: product, price: 0, isInCart: false },
+            setUpdatedProducts([
+                ...updatedProducts,
+                {
+                    id: Date.now(),
+                    name: product,
+                    price: 0,
+                    serialNumber: '',
+                    location: '',
+                    quantity: 0,
+                    image: '',
+                    isInCart: false,
+                },
+            ]);
+            setCart([
+                ...cart,
+                {
+                    id: Date.now(),
+                    name: product,
+                    price: 0,
+                    serialNumber: '',
+                    location: '',
+                    quantity: 0,
+                    image: '',
+                    isInCart: false,
+                },
             ]);
             setProduct('');
-        }
-    };
-
-    const handleAddToCart = (productId: number) => {
-        const selectedProduct = products.find((product) => product.id === productId);
-
-        if (selectedProduct) {
-            setCart([...cart, { ...selectedProduct, isInCart: true }]);
-            setProducts(
-                products.map((product) =>
-                    product.id === productId ? { ...product, isInCart: true } : product
-                )
-            );
-        }
-    };
-
-    const handleRemoveFromCart = (productId: number) => {
-        const selectedProduct = cart.find((product) => product.id === productId);
-
-        if (selectedProduct) {
-            setCart(cart.filter((product) => product.id !== productId));
-            setProducts(
-                products.map((product) =>
-                    product.id === productId ? { ...product, isInCart: false } : product
-                )
-            );
         }
     };
 
@@ -63,14 +63,11 @@ const FullProductsList: React.FC = () => {
 
         // Logic for dragging products
         if (source.droppableId === 'ProductsList' && destination.droppableId === 'Cart') {
-            const draggedProduct = products[source.index];
+            const draggedProduct = updatedProducts[source.index];
             draggedProduct.isInCart = true;
 
-            const updatedProducts = [...products];
-            updatedProducts.splice(source.index, 1);
-
-            setProducts(updatedProducts);
-            setCart([...cart, draggedProduct]);
+            const updatedCart = [...cart, draggedProduct];
+            setCart(updatedCart);
         } else if (
             source.droppableId === 'Cart' &&
             destination.droppableId === 'ProductsList'
@@ -81,11 +78,7 @@ const FullProductsList: React.FC = () => {
             const updatedCart = [...cart];
             updatedCart.splice(source.index, 1);
 
-            const updatedProducts = [...products];
-            updatedProducts.splice(destination.index, 0, draggedProduct);
-
             setCart(updatedCart);
-            setProducts(updatedProducts);
         }
     };
 
@@ -94,14 +87,7 @@ const FullProductsList: React.FC = () => {
             <div className="App">
                 <span className="heading">Product Management System</span>
                 <ProductsInputField product={product} setProduct={setProduct} handleAdd={handleAdd} />
-                <ProductsList
-                    products={products}
-                    setProducts={setProducts}
-                    cart={cart}
-                    setCart={setCart}
-                   
-              
-                />
+                <ProductsList products={updatedProducts} setProducts={setUpdatedProducts} setCart={setCart} cart={cart} />
             </div>
         </DragDropContext>
     );

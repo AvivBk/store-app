@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from './components/ProductList';
 import FullTodoList from './components/FullTodoList';
-import FullProductsList from './components/FullProductsList'; // Import the FullProductsList component
-import './styles.css'; // Import the CSS file
+import FullProductsList from './components/FullProductsList';
+import { Product } from './models/models';
+import './styles.css';
 
 const App: React.FC = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const App: React.FC = () => {
             case 2:
                 return <FullTodoList />;
             case 3:
-                return <FullProductsList />; // Render the FullProductsList component on page 3
+                return <FullProductsList products={products} />;
             default:
                 return null;
         }
