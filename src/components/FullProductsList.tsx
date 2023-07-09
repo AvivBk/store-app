@@ -4,6 +4,7 @@ import ProductsList from './ProductsList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Product } from '../models/models';
 import "./FullProductsList.css";
+import CartActions from './CartActions';
 
 interface Props {
     products: Product[];
@@ -18,34 +19,30 @@ const FullProductsList: React.FC<Props> = ({ products }) => {
         e.preventDefault();
 
         if (product) {
-            setUpdatedProducts([
-                ...updatedProducts,
-                {
-                    id: Date.now(),
-                    name: product,
-                    price: 0,
-                    serialNumber: '',
-                    location: '',
-                    quantity: 0,
-                    image: '',
-                    isInCart: false,
-                },
-            ]);
-            setCart([
-                ...cart,
-                {
-                    id: Date.now(),
-                    name: product,
-                    price: 0,
-                    serialNumber: '',
-                    location: '',
-                    quantity: 0,
-                    image: '',
-                    isInCart: false,
-                },
-            ]);
+            const newProduct: Product = {
+                id: Date.now(),
+                name: product,
+                price: 0,
+                serialNumber: '',
+                location: '',
+                quantity: 0,
+                image: '',
+                isInCart: false,
+            };
+
+            setUpdatedProducts((prevProducts) => [...prevProducts, newProduct]);
+            setCart((prevCart) => [...prevCart, newProduct]);
             setProduct('');
         }
+    };
+
+    const handleDelete = () => {
+        setUpdatedProducts((prevProducts) => [...prevProducts, ...cart]);
+        setCart([]);
+    };
+
+    const handleBuy = () => {
+        console.log("Buy button clicked");
     };
 
     const onDragEnd = (result: DropResult) => {
@@ -83,13 +80,12 @@ const FullProductsList: React.FC<Props> = ({ products }) => {
         }
     };
 
-
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="main_container">
-               
                 <ProductsInputField product={product} setProduct={setProduct} handleAdd={handleAdd} />
                 <ProductsList products={updatedProducts} setProducts={setUpdatedProducts} setCart={setCart} cart={cart} />
+                <CartActions products={cart} onDelete={handleDelete} onBuy={handleBuy} />
             </div>
         </DragDropContext>
     );
