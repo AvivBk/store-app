@@ -19,10 +19,40 @@ const App: React.FC = () => {
         setCurrentPage(pageNumber);
     };
 
+    const handleDeleteProduct = (productId: number) => {
+        // Filter out the deleted product from the products list
+        const updatedProducts = products.filter((product) => product.id !== productId);
+        setProducts(updatedProducts);
+    };
+
+    const handleAddProduct = (newProduct: Product) => {
+        // Create a new product object with a unique ID
+        const generatedId = Date.now();
+        const product: Product = {
+            id: generatedId,
+            name: newProduct.name,
+            price: newProduct.price,
+            serialNumber: newProduct.serialNumber,
+            location: newProduct.location,
+            quantity: newProduct.quantity,
+            image: newProduct.image,
+        };
+
+        const updatedProducts = [...products, product];
+        setProducts(updatedProducts);
+    };
+
+
     const renderContent = () => {
         switch (currentPage) {
             case 1:
-                return <ProductList products={products} />;
+                return (
+                    <ProductList
+                        products={products}
+                        onDeleteProduct={handleDeleteProduct}
+                        onAddProduct={handleAddProduct}
+                    />
+                );
             case 2:
                 return <FullTodoList />;
             case 3:
@@ -33,18 +63,37 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="App" style={{ backgroundImage: "url('/images/store_bg.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <div
+            className="App"
+            style={{ backgroundImage: "url('/images/store_bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
             <h1>Product Management System</h1>
             <div className="pagination">
-                <button onClick={() => handlePageChange(1)} className={currentPage === 1 ? "active" : ""} disabled={currentPage === 1}>Page 1</button>
-                <button onClick={() => handlePageChange(2)} className={currentPage === 2 ? "active" : ""} disabled={currentPage === 2}>Page 2</button>
-                <button onClick={() => handlePageChange(3)} className={currentPage === 3 ? "active" : ""} disabled={currentPage === 3}>Page 3</button>
+                <button
+                    onClick={() => handlePageChange(1)}
+                    className={currentPage === 1 ? 'active' : ''}
+                    disabled={currentPage === 1}
+                >
+                    Page 1
+                </button>
+                <button
+                    onClick={() => handlePageChange(2)}
+                    className={currentPage === 2 ? 'active' : ''}
+                    disabled={currentPage === 2}
+                >
+                    Page 2
+                </button>
+                <button
+                    onClick={() => handlePageChange(3)}
+                    className={currentPage === 3 ? 'active' : ''}
+                    disabled={currentPage === 3}
+                >
+                    Page 3
+                </button>
             </div>
             {renderContent()}
         </div>
     );
-
-
 };
 
 export default App;

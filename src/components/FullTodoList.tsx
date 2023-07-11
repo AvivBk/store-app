@@ -62,7 +62,7 @@ const FullTodoList: React.FC = () => {
             <div className="App">
                 <span className="heading">My To do List</span>
                 <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
-                <TodoList
+                <TodoList 
                     todos={todos}
                     setTodos={setTodos}
                     CompletedTodos={completedTodos}
