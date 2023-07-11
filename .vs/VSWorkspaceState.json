@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
-    "\\src\\components"
+    "\\src\\actions",
+    "\\src\\components",
+    "\\src\\models",
+    "\\src\\reducers"
   ],
-  "SelectedNode": "\\src\\components\\Product.tsx",
+  "SelectedNode": "\\src\\store.js",
   "PreviewInSolutionExplorer": false
 }

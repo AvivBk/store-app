@@ -51,7 +51,11 @@ const ProductList: React.FC<ProductListProps> = ({ products, onDeleteProduct, on
             <h2>Product List</h2>
             <div className="product-list">
                 {products.map((product) => (
-                    <ProductItem key={product.id} product={product} onDelete={() => handleDeleteProduct(product.id)} />
+                    <ProductItem
+                        key={product.id}
+                        product={product}
+                        onDelete={() => handleDeleteProduct(product.id)}
+                    />
                 ))}
             </div>
             <div className="add-product-container">
