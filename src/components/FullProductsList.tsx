@@ -83,7 +83,7 @@ const FullProductsList: React.FC<Props> = ({ products }) => {
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="main_container">
-                <ProductsInputField product={product} setProduct={setProduct} handleAdd={handleAdd} />
+                <ProductsInputField product={product} setProduct={setProduct} handleAdd={handleAdd} className="products-input-field" />
                 <ProductsList products={updatedProducts} setProducts={setUpdatedProducts} setCart={setCart} cart={cart} />
                 <CartActions products={cart} onDelete={handleDelete} onBuy={handleBuy} />
             </div>

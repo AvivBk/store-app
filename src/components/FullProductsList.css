@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content:center;
 }
 
 .heading {
@@ -25,4 +25,7 @@
     .product-management-system {
         width: 90%;
     }
+}
+.products-input-field {
+    margin-bottom: 20px;
 }

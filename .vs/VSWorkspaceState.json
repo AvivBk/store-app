@@ -1,14 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\public\\videos",
     "\\src",
     "\\src\\actions",
     "\\src\\components",
     "\\src\\models",
-    "\\src\\reducers"
+    "\\src\\reducers",
+    "\\src\\routes"
   ],
-  "SelectedNode": "\\public\\videos",
+  "SelectedNode": "\\src\\routes\\AppRoutes.tsx",
   "PreviewInSolutionExplorer": false
 }

@@ -5,14 +5,15 @@ interface Props {
     product: string;
     setProduct: React.Dispatch<React.SetStateAction<string>>;
     handleAdd: (e: React.FormEvent) => void;
+    className?: string; 
 }
 
-const ProductsInputField: React.FC<Props> = ({ product, setProduct, handleAdd }) => {
+const ProductsInputField: React.FC<Props> = ({ product, setProduct, handleAdd, className }) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
         <form
-            className="input"
+            className={`input ${className}`}
             onSubmit={(e) => {
                 handleAdd(e);
                 inputRef.current?.blur();
