@@ -45,7 +45,7 @@ Reducer:
 `productsReducer`: Handles the state updates for the products. It manages the `products` array, `loading` status, and `error` message in the Redux store based on dispatched actions.
 
 Root Reducer:
- `rootReducer`: Combines multiple reducers if needed. In this case, it combines the `productsReducer` with other reducers (not shown in the provided code).
+ `rootReducer`: Combines multiple reducers if needed. In this case, it combines the `productsReducer` with other reducers.
 
 Store:
 `store`: Creates the Redux store using the `rootReducer` and applies the middleware `thunk` to handle asynchronous actions.
