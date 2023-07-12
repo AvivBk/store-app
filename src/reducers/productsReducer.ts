@@ -3,6 +3,8 @@ import {
     FETCH_PRODUCTS_REQUEST,
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCTS_FAILURE,
+    ADD_PRODUCT,
+    DELETE_PRODUCT
 } from '../actions/productsActions';
 
 // Define the ProductState type
@@ -41,6 +43,17 @@ const productsReducer = (state = initialState, action: any) => {
                 loading: false,
                 error: action.payload,
             };
+        case DELETE_PRODUCT:
+            return {
+                ...state,
+                products: state.products.filter((product) => product.id !== action.payload),
+            };
+        case ADD_PRODUCT:
+            return {
+                ...state,
+                products: [...state.products, action.payload],
+            };
+
         default:
             return state;
     }

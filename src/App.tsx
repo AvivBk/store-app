@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from './actions/productsActions';
+import { fetchProducts, addProduct, deleteProduct } from './actions/productsActions';
 import ProductList from './components/ProductList';
 import FullTodoList from './components/FullTodoList';
 import FullProductsList from './components/FullProductsList';
@@ -14,7 +14,7 @@ const App: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch<any>(fetchProducts()); // Add <any> to resolve TypeScript error
+        dispatch<any>(fetchProducts());
     }, [dispatch]);
 
 
@@ -23,14 +23,12 @@ const App: React.FC = () => {
     };
 
     const handleDeleteProduct = (productId: number) => {
-        // Handle delete product logic here
-        // For now, just console log the deleted product ID
+        dispatch(deleteProduct(productId));
         console.log(`Deleted product with ID: ${productId}`);
     };
 
     const handleAddProduct = (newProduct: Product) => {
-        // Handle add product logic here
-        // For now, just console log the added product details
+        dispatch(addProduct(newProduct));
         console.log('Added product:', newProduct);
     };
 
