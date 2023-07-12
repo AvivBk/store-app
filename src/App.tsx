@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, addProduct, deleteProduct } from './actions/productsActions';
-import ProductList from './components/ProductList';
-import FullTodoList from './components/FullTodoList';
-import FullProductsList from './components/FullProductsList';
 import { RootState } from './reducers';
 import { Product } from './models/models';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
 import './styles.css';
 
+
 const App: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
     const products = useSelector((state: RootState) => state.products.products);
     const [currentPage, setCurrentPage] = useState(1);
-
-    useEffect(() => {
-        dispatch<any>(fetchProducts());
-    }, [dispatch]);
-
+    const navigate = useNavigate();
 
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
+        console.log(`Deleted page with ID: ${pageNumber}`);
+        navigate(`/page${pageNumber}`);
     };
 
     const handleDeleteProduct = (productId: number) => {
@@ -32,24 +32,9 @@ const App: React.FC = () => {
         console.log('Added product:', newProduct);
     };
 
-    const renderContent = () => {
-        switch (currentPage) {
-            case 1:
-                return (
-                    <ProductList
-                        products={products}
-                        onDeleteProduct={handleDeleteProduct}
-                        onAddProduct={handleAddProduct}
-                    />
-                );
-            case 2:
-                return <FullTodoList />;
-            case 3:
-                return <FullProductsList products={products} />;
-            default:
-                return null;
-        }
-    };
+    useEffect(() => {
+        dispatch(fetchProducts());
+    }, [dispatch]);
 
     return (
         <div
@@ -80,7 +65,12 @@ const App: React.FC = () => {
                     Page 3
                 </button>
             </div>
-            {renderContent()}
+            <AppRoutes
+                currentPage={currentPage}
+                products={products}
+                handleDeleteProduct={handleDeleteProduct}
+                handleAddProduct={handleAddProduct}
+            />
         </div>
     );
 };
