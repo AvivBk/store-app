@@ -1,47 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts, addProduct, deleteProduct } from './actions/productsActions';
 import ProductList from './components/ProductList';
 import FullTodoList from './components/FullTodoList';
 import FullProductsList from './components/FullProductsList';
+import { RootState } from './reducers';
 import { Product } from './models/models';
 import './styles.css';
 
 const App: React.FC = () => {
-    const [products, setProducts] = useState<Product[]>([]);
+    const dispatch = useDispatch();
+    const products = useSelector((state: RootState) => state.products.products);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/products')
-            .then((response) => response.json())
-            .then((data) => setProducts(data));
-    }, []);
+        dispatch<any>(fetchProducts());
+    }, [dispatch]);
+
 
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
     };
 
     const handleDeleteProduct = (productId: number) => {
-        // Filter out the deleted product from the products list
-        const updatedProducts = products.filter((product) => product.id !== productId);
-        setProducts(updatedProducts);
+        dispatch(deleteProduct(productId));
+        console.log(`Deleted product with ID: ${productId}`);
     };
 
     const handleAddProduct = (newProduct: Product) => {
-        // Create a new product object with a unique ID
-        const generatedId = Date.now();
-        const product: Product = {
-            id: generatedId,
-            name: newProduct.name,
-            price: newProduct.price,
-            serialNumber: newProduct.serialNumber,
-            location: newProduct.location,
-            quantity: newProduct.quantity,
-            image: newProduct.image,
-        };
-
-        const updatedProducts = [...products, product];
-        setProducts(updatedProducts);
+        dispatch(addProduct(newProduct));
+        console.log('Added product:', newProduct);
     };
-
 
     const renderContent = () => {
         switch (currentPage) {

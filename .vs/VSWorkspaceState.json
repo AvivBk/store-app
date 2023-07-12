@@ -2,9 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\public",
+    "\\public\\videos",
     "\\src",
-    "\\src\\components"
+    "\\src\\actions",
+    "\\src\\components",
+    "\\src\\models",
+    "\\src\\reducers"
   ],
-  "SelectedNode": "\\src\\components\\Product.tsx",
+  "SelectedNode": "\\public\\videos",
   "PreviewInSolutionExplorer": false
 }
